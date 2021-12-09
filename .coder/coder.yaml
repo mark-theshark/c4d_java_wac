@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=http://localhost/api/private/template/schemas/wac.schema.json
 version: 0.2
 workspace:
   type: docker
