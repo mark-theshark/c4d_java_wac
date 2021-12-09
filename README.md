@@ -1,6 +1,6 @@
 # Java workspace template for a Coder for Docker (localhost) deployment
 
-This WAC file for Coder for Docker - uses Coder's templateto automate and configure-as-code the parameters of a Java-related workspace ( aka development environment )
+This WAC file for Coder for Docker - uses Coder's template to automate and configure-as-code the parameters of a Java-related workspace ( aka development environment )
 
 Press the button to authenticate into a Coder instance and execute the coder.yaml
 
