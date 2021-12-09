@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=http://localhost/api/private/template/schemas/wac.schema.json
+version: 0.2
+workspace:
+  type: docker
+  specs:
+    docker:
+      image:
+        value: index.docker.io/codercom/enterprise-intellij:ubuntu
+      container-based-vm:
+        value: false
+  configure:
+    start:
+      value:
+        - name: install language support for java vscode extension (vsix) from open vsx
+          continue-on-error: true
+          directory: /home/coder/
+          shell: /bin/bash
+          command: |
+            SERVICE_URL=https://open-vsx.org/vscode/gallery ITEM_URL=https://open-vsx.org/vscode/item /var/tmp/coder/code-server/bin/code-server --install-extension redhat.java  
+            SERVICE_URL=https://open-vsx.org/vscode/gallery ITEM_URL=https://open-vsx.org/vscode/item /var/tmp/coder/code-server/bin/code-server --install-extension pivotal.vscode-boot-dev-pack      
+            SERVICE_URL=https://open-vsx.org/vscode/gallery ITEM_URL=https://open-vsx.org/vscode/item /var/tmp/coder/code-server/bin/code-server --install-extension SonarSource.sonarlint-vscode 
+            SERVICE_URL=https://open-vsx.org/vscode/gallery ITEM_URL=https://open-vsx.org/vscode/item /var/tmp/coder/code-server/bin/code-server --install-extension BazelBuild.vscode-bazel                                           
+        - name: clone repo
+          continue-on-error: true
+          directory: /home/coder/
+          shell: /bin/bash
+          command: |
+            ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+            REPO_1_PATH=$HOME/java_helloworld
+            if [ -d $REPO_1_PATH ]; then
+              echo 'java helloworld! repo already exists - skip clone'
+            else
+              git clone git@github.com:mtm20176/java_helloworld.git 
+            fi                            
